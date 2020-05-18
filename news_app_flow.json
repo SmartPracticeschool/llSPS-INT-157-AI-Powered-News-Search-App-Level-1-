@@ -1,0 +1,489 @@
+[
+    {
+        "id": "ee44a6f.259e858",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "6c340085.ae30a",
+        "type": "ui_group",
+        "z": "",
+        "name": "News Search",
+        "tab": "f1a064d4.61fc28",
+        "order": 2,
+        "disp": false,
+        "width": "14",
+        "collapse": false
+    },
+    {
+        "id": "f1a064d4.61fc28",
+        "type": "ui_tab",
+        "z": "",
+        "name": "News Search App",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "19b18b64.b78a65",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-light",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#ff962d",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#ff0000",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "reset": false
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#0094CE",
+                    "value": "#ff962d",
+                    "edited": true
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#ff962d",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#fafafa",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#ffbc79",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#ff962d",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey"
+            }
+        },
+        "site": {
+            "name": "Node-RED Dashboard",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 50,
+                "sy": 50,
+                "gx": 6,
+                "gy": 6,
+                "cx": 10,
+                "cy": 17,
+                "px": 10,
+                "py": 10
+            }
+        }
+    },
+    {
+        "id": "204fe1c2.3999be",
+        "type": "ui_group",
+        "z": "",
+        "name": "Visualize",
+        "tab": "f1a064d4.61fc28",
+        "order": 3,
+        "disp": false,
+        "width": "7",
+        "collapse": false
+    },
+    {
+        "id": "9b13a222.552de",
+        "type": "ui_group",
+        "z": "",
+        "name": "Sidebar",
+        "tab": "f1a064d4.61fc28",
+        "order": 1,
+        "disp": false,
+        "width": "3",
+        "collapse": false
+    },
+    {
+        "id": "8f15cd23.775ad",
+        "type": "ui_form",
+        "z": "ee44a6f.259e858",
+        "name": "",
+        "label": "",
+        "group": "6c340085.ae30a",
+        "order": 1,
+        "width": "14",
+        "height": "4",
+        "options": [
+            {
+                "label": "Enter the Query",
+                "value": "input",
+                "type": "text",
+                "required": true,
+                "rows": null
+            }
+        ],
+        "formValue": {
+            "input": ""
+        },
+        "payload": "",
+        "submit": "submit",
+        "cancel": "cancel",
+        "topic": "",
+        "x": 170,
+        "y": 240,
+        "wires": [
+            [
+                "c6b3478f.883598"
+            ]
+        ]
+    },
+    {
+        "id": "c6b3478f.883598",
+        "type": "function",
+        "z": "ee44a6f.259e858",
+        "name": "query",
+        "func": "msg={\n    discoveryparams:\n    {\n        \"environment_id\":\"system\",\n        \"query\":msg.payload.input\n    }\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 330,
+        "y": 200,
+        "wires": [
+            [
+                "daaccce2.4c327"
+            ]
+        ]
+    },
+    {
+        "id": "4a22f49d.034cdc",
+        "type": "function",
+        "z": "ee44a6f.259e858",
+        "name": "news",
+        "func": "var i,key;\nvar arr=[]\nfor (i = 0; i < 10; i++) {\n    arr.push({title:msg.search_results.results[i].title,\n        content:msg.search_results.results[i].text,\n        url:msg.search_results.results[i].url,\n        sentiment:msg.search_results.results[i].enriched_text.sentiment.document.label\n    });\n}\nmsg.payload=arr;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 670,
+        "y": 200,
+        "wires": [
+            [
+                "c50c7cb0.c6728",
+                "f076ae03.46e3a",
+                "a9c97858.059728"
+            ]
+        ]
+    },
+    {
+        "id": "c50c7cb0.c6728",
+        "type": "debug",
+        "z": "ee44a6f.259e858",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 890,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "f076ae03.46e3a",
+        "type": "ui_template",
+        "z": "ee44a6f.259e858",
+        "group": "6c340085.ae30a",
+        "name": "search content",
+        "order": 3,
+        "width": "14",
+        "height": "7",
+        "format": "<style>\n::-webkit-scrollbar {\n  width: 10px;\n}\n::-webkit-scrollbar-track {\n  box-shadow: inset 0 0 5px grey; \n  border-radius: 10px;\n}\n::-webkit-scrollbar-thumb {\n  background: orange; \n  border-radius: 10px;\n}\n::-webkit-scrollbar-thumb:hover {\n  background: #fc6900; \n}\n</style>\n<div>\n    <div ng-repeat=\"x in msg.payload\">\n        <a href=\"{{x['url']}}\" target=\"_blank\" style=\"text-decoration:none; font-weight: bold;font-size:20px;color:orange\">\n            {{x[\"title\"]}}\n        </a>\n    <br>\n    <br>\n    <span style=\"font-size:16px\">\n        {{x['content']}}\n    </span>\n    <br>\n    <span style=\"font-weight:bold;font-size:20px\">\n        Sentiment:\n    </span>\n    <span ng-if=\"x.sentiment=='positive'\">\n                    <img alt=\"{{x['sentiment']}}\" src=\"https://cdn.pixabay.com/photo/2012/04/13/00/21/plus-31216_960_720.png\" width=\"15\" height=\"15\">\n    </span>\n    <span ng-if=\"x.sentiment=='negative'\">\n                    <img width=\"15\" height=\"15\" src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAbFBMVEX/////AAD/KSn/uLj/wcH/MTH/ODj/fX3/y8v/QED/1NT/Rkb/jIz/3d3/TU3/6Oj/9/f/XFz/VFT/rq7/vb3/8vL/2tr/ycn/nZ3/amr/ZWX/kJD/DQ3/Gxv/7e3/b2//dXX/goL/qKj/lpYrq+qLAAAB1UlEQVR4nO3b246CMBSF4SogqMCAimfB0fd/xyniaSbGiRc729b/ewBYK0jayK4xAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcElRVdWXlZ3MRzfJA4vwX7PgBU+uc3/bLlAXsQ1bFc8qVcEyjffNam2VZTmxcmt8MrwzeCT6V/8VT65zf9cuUBexDTuZ2OTr9aqJN9Pqb8FNf7fteWTb//7VL9lpJxKwS24Fpz4WtM/xcCkYDrSzCImCrmCWaycRk2endWGjnUNQ2q4fmZ8v4dncNky1Q4iK7Y/U60fY6xWm0o4grDZz7QjCEhNqRxAWmKl2BGFLc9COIOxoltoRhG2MzzuaVuz5gk9DH9DQfbGJtSMIo6H7aOg+GrqPhu6jofs+YV9KQ9fR0H2f0PCoHUFY+gH/CPv/3SLQjiDsYBLtCMJCU2tHEJaZQjuCsMIUpXYGUXlhPP/M3c591WvtFILKuh37WvS1c4jZhd3As78bt/Q8Fl3ttZMIaa6j0IWfFZv7We9Z5NWUt7W9jM9eHVZlPh4OXhyqfz9RNBiO83K1fHQgoc5GyWvnIt7QLFyMsvrJsQsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC8hx89ukbRSJQNSgAAAABJRU5ErkJggg==\">\n    </span>\n    <span ng-if=\"x.sentiment=='neutral'\">\n                    <img src=\"https://cdn.imgbin.com/13/17/9/imgbin-blue-circle-watercolor-brush-7Hh4HcUPTCYGEBjriew8GuLHx.jpg\" width=\"15\" height=\"15\">\n    </span>\n    <br>\n    <hr class=\"line\">\n    <br>\n    </div>\n</div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "x": 880,
+        "y": 320,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f10d8f3.a48d67",
+        "type": "debug",
+        "z": "ee44a6f.259e858",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 890,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "daaccce2.4c327",
+        "type": "watson-discovery-v1",
+        "z": "ee44a6f.259e858",
+        "name": "discovery",
+        "environmentname": "",
+        "environmentId": "system",
+        "collectionId": "news-en",
+        "configurationname": "",
+        "configurationId": "",
+        "language_code": "en",
+        "collection_name": "",
+        "count": "10",
+        "passages": true,
+        "nlp_query": true,
+        "query": "",
+        "filter": "",
+        "aggregation": "term(enriched_text.sentiment.document.label,count:10)",
+        "return": "",
+        "description": "",
+        "size": "LT",
+        "discovery-method": "query",
+        "service-endpoint": "https://api.eu-gb.discovery.watson.cloud.ibm.com/instances/7ca5d0f1-4b24-4e41-8d36-2f0f50b0af1a",
+        "x": 460,
+        "y": 340,
+        "wires": [
+            [
+                "65af433f.e5952c",
+                "4a22f49d.034cdc",
+                "7e70afcd.2cd6"
+            ]
+        ]
+    },
+    {
+        "id": "65af433f.e5952c",
+        "type": "function",
+        "z": "ee44a6f.259e858",
+        "name": "sentiment",
+        "func": "var val=[msg.search_results.aggregations[0].results[0].matching_results];\nval.push(msg.search_results.aggregations[0].results[1].matching_results);\nval.push(msg.search_results.aggregations[0].results[2].matching_results);\nmsg.payload=val;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 690,
+        "y": 420,
+        "wires": [
+            [
+                "f10d8f3.a48d67",
+                "be5f0036.44915",
+                "bbfcbd1d.3da27"
+            ]
+        ]
+    },
+    {
+        "id": "8559c5e.ea89c38",
+        "type": "ui_chart",
+        "z": "ee44a6f.259e858",
+        "name": "",
+        "group": "204fe1c2.3999be",
+        "order": 2,
+        "width": "7",
+        "height": "6",
+        "label": "Sentiment Chart",
+        "chartType": "bar",
+        "legend": "true",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#00d000",
+            "#f70000",
+            "#0000dd",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "useOldStyle": false,
+        "outputs": 1,
+        "x": 920,
+        "y": 620,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "be5f0036.44915",
+        "type": "ui_template",
+        "z": "ee44a6f.259e858",
+        "group": "204fe1c2.3999be",
+        "name": "sentiment",
+        "order": 3,
+        "width": "7",
+        "height": "2",
+        "format": "<div>\n    <p style=\"font-size:18px;\">\n            <img src=\"https://cdn.pixabay.com/photo/2012/04/13/00/21/plus-31216_960_720.png\" width=\"15\" height=\"15\">\n        <span style=\"font-weight:bold;color:green\">\n            Positive News:\n        </span> {{msg.payload[0]}}\n        <br>\n            <img src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAbFBMVEX/////AAD/KSn/uLj/wcH/MTH/ODj/fX3/y8v/QED/1NT/Rkb/jIz/3d3/TU3/6Oj/9/f/XFz/VFT/rq7/vb3/8vL/2tr/ycn/nZ3/amr/ZWX/kJD/DQ3/Gxv/7e3/b2//dXX/goL/qKj/lpYrq+qLAAAB1UlEQVR4nO3b246CMBSF4SogqMCAimfB0fd/xyniaSbGiRc729b/ewBYK0jayK4xAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcElRVdWXlZ3MRzfJA4vwX7PgBU+uc3/bLlAXsQ1bFc8qVcEyjffNam2VZTmxcmt8MrwzeCT6V/8VT65zf9cuUBexDTuZ2OTr9aqJN9Pqb8FNf7fteWTb//7VL9lpJxKwS24Fpz4WtM/xcCkYDrSzCImCrmCWaycRk2endWGjnUNQ2q4fmZ8v4dncNky1Q4iK7Y/U60fY6xWm0o4grDZz7QjCEhNqRxAWmKl2BGFLc9COIOxoltoRhG2MzzuaVuz5gk9DH9DQfbGJtSMIo6H7aOg+GrqPhu6jofs+YV9KQ9fR0H2f0PCoHUFY+gH/CPv/3SLQjiDsYBLtCMJCU2tHEJaZQjuCsMIUpXYGUXlhPP/M3c591WvtFILKuh37WvS1c4jZhd3As78bt/Q8Fl3ttZMIaa6j0IWfFZv7We9Z5NWUt7W9jM9eHVZlPh4OXhyqfz9RNBiO83K1fHQgoc5GyWvnIt7QLFyMsvrJsQsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC8hx89ukbRSJQNSgAAAABJRU5ErkJggg==\" width=\"15\" height=\"15\">\n        <span style=\"font-weight:bold;color:red\">\n            Negative News:\n        </span> {{msg.payload[1]}}\n        <br>\n            <img src=\"https://cdn.imgbin.com/13/17/9/imgbin-blue-circle-watercolor-brush-7Hh4HcUPTCYGEBjriew8GuLHx.jpg\" width=\"15\" height=\"15\">\n        <span style=\"font-weight:bold;color:blue\">\n            Neutral News:\n        </span> {{msg.payload[2]}}\n        <br>\n    </p>\n</div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "x": 920,
+        "y": 520,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "bbfcbd1d.3da27",
+        "type": "function",
+        "z": "ee44a6f.259e858",
+        "name": "graph",
+        "func": "msg.payload=[{\n    \"series\": [ \"News\" ],\n    \"data\": [ msg.payload[0], msg.payload[1], msg.payload[2] ],\n    \"labels\": [ \"Positive\", \"Negative\", \"Neutral\" ]\n}]\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 740,
+        "y": 540,
+        "wires": [
+            [
+                "8559c5e.ea89c38",
+                "512fb428.62261c"
+            ]
+        ]
+    },
+    {
+        "id": "512fb428.62261c",
+        "type": "ui_template",
+        "z": "ee44a6f.259e858",
+        "group": "204fe1c2.3999be",
+        "name": "describe",
+        "order": 1,
+        "width": "0",
+        "height": "0",
+        "format": "<div style=\"overflow:hidden\">\n    <p style=\"text-align:center;font-size:25px;font-weight:bold\">Sentiment Analysis</p>\n    <p>\n        Below is the total count of the number of news articles that have negative, neutral or positive sentiment expressed in the article.\n    </p>\n</div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "x": 940,
+        "y": 580,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "cf917896.b3e6a8",
+        "type": "ui_template",
+        "z": "ee44a6f.259e858",
+        "group": "9b13a222.552de",
+        "name": "",
+        "order": 0,
+        "width": "3",
+        "height": "10",
+        "format": "<style>\nul {\n  list-style: none;\n}\n\nul li::before {\n  content: \"\\2022\";\n  color: orange;\n  font-weight: bold;\n  display: inline-block; \n  width: 1em;\n  margin-left: -1em;\n  font-size:1.2em;\n}\n</style>\n<div>\n    <img src=\"https://pngimage.net/wp-content/uploads/2018/06/newspaper-logo-png-5.png\" width=\"100%\">\n    <h1 style=\"text-align:center\">News Categories</h1>\n    <ul style=\"font-size:15px\">\n        <li ng-repeat=\"x in msg.payload\">{{x}}</li>\n    </ul>\n</div>\n<div style=\"text-align:center\">\n    <a href=\"mailto:akhilrao1999@gmail.com\">\n        <img src=\"https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRm4AQcYbPCPGgtsRSqAl1DsVk3JPWsgVFQOljNEtt0Kn6y7it7&usqp=CAU\" width=\"30\">\n    </a>\n</div>\n",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "x": 440,
+        "y": 560,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a9c97858.059728",
+        "type": "ui_template",
+        "z": "ee44a6f.259e858",
+        "group": "6c340085.ae30a",
+        "name": "Search title",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "format": "<p style=\"text-align:center;font-size:25px;font-weight:bold\">Top Searched News</p>\n",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "x": 910,
+        "y": 280,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7e70afcd.2cd6",
+        "type": "function",
+        "z": "ee44a6f.259e858",
+        "name": "categories",
+        "func": "var i,key;\nvar arr=[];\nfor (i = 0; i < 10; i++) {\n    var a=(msg.search_results.results[i].enriched_title.categories[0].label).split(\"/\");\n    for(var j=0;j<a.length;j++){\n        a[j]=a[j].charAt(0).toUpperCase()+a[j].slice(1); \n        arr.push(a[j]);\n    }\n}\nvar unique = arr.filter((v, i, a) => a.indexOf(v) === i);\nmsg.payload=unique.slice(1,12);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 290,
+        "y": 480,
+        "wires": [
+            [
+                "cf917896.b3e6a8",
+                "9b1ab100.d9afb"
+            ]
+        ]
+    },
+    {
+        "id": "9b1ab100.d9afb",
+        "type": "debug",
+        "z": "ee44a6f.259e858",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 530,
+        "y": 480,
+        "wires": []
+    }
+]
